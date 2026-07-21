@@ -1,356 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapCash Pro • Turn Snapchat Scores Into Real Money</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        .heading-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .hero-bg {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a0033 100%);
-        }
-        .snap-gradient {
-            background: linear-gradient(90deg, #facc15, #ec4899, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
-        }
-        .premium-glow {
-            box-shadow: 0 0 35px -5px rgb(234 179 8);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapWorth</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#fff200,#ffd000);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.card{
+background:white;
+width:380px;
+max-width:100%;
+border-radius:25px;
+padding:35px;
+box-shadow:0 20px 60px rgba(0,0,0,.15);
+text-align:center;
+animation:fade .7s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.logo{
+font-size:55px;
+}
+
+h1{
+margin-top:10px;
+font-size:32px;
+}
+
+.sub{
+color:#777;
+margin:10px 0 25px;
+}
+
+input{
+width:100%;
+padding:18px;
+font-size:22px;
+border:none;
+background:#f5f5f5;
+border-radius:15px;
+outline:none;
+text-align:center;
+}
+
+button{
+margin-top:18px;
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+background:black;
+color:white;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.result{
+margin-top:35px;
+display:none;
+}
+
+.money{
+font-size:48px;
+font-weight:700;
+color:#19b400;
+margin:15px 0;
+}
+
+.note{
+color:#666;
+font-size:14px;
+margin-top:15px;
+}
+
+.share{
+margin-top:25px;
+background:#fff200;
+color:black;
+}
+
+.footer{
+margin-top:30px;
+font-size:12px;
+color:#888;
+}
+</style>
+
 </head>
-<body class="bg-black text-white overflow-x-hidden">
-    <!-- NAV -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/95 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-5 md:px-6 py-4 md:py-5 flex justify-between items-center">
-            <div class="flex items-center gap-x-3">
-                <div class="w-8 h-8 md:w-9 md:h-9 rounded-2xl bg-gradient-to-br from-amber-400 to-pink-500 flex items-center justify-center text-2xl shadow-inner">👻</div>
-                <h1 class="heading-font text-2xl md:text-3xl font-bold tracking-tighter snap-gradient">SnapCash</h1>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
-                <a href="#" class="hover:text-amber-400 transition-colors">How it Works</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">Leaderboard</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">Testimonials</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">FAQ</a>
-            </div>
-            
-            <div class="flex items-center gap-x-3 md:gap-x-4">
-                <button onclick="showLogin()" 
-                        class="hidden sm:block px-5 md:px-6 py-2.5 text-sm font-semibold rounded-2xl border border-white/30 hover:border-white/70 transition-all">
-                    Log in
-                </button>
-                <button onclick="showPremium()" 
-                        class="px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-amber-400 via-yellow-400 to-pink-500 text-black font-bold rounded-3xl hover:scale-105 active:scale-95 transition-all flex items-center gap-x-2 text-sm md:text-base">
-                    <i class="fa-solid fa-crown"></i>
-                    <span class="hidden sm:inline">Premium</span>
-                </button>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <!-- HERO -->
-    <section class="hero-bg pt-24 md:pt-32 pb-16 md:pb-24">
-        <div class="max-w-6xl mx-auto px-5 md:px-6 text-center">
-            <div class="inline-flex items-center gap-x-2 bg-white/10 rounded-3xl px-5 py-2 mb-8 text-sm font-medium border border-white/20">
-                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                <span class="hidden sm:inline">1,284 users converting scores live</span>
-                <span class="sm:hidden">Live conversions</span>
-            </div>
-            
-            <h1 class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tighter mb-6">
-                Turn Snapchat<br class="hidden md:block"> <span class="snap-gradient">Scores</span> into Cash
-            </h1>
-            
-            <p class="max-w-xl mx-auto text-lg md:text-2xl text-gray-300 mb-10 md:mb-12 px-4">
-                Premium platform. Real payouts. Instant withdrawals to PayPal, Cash App & more.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-                <button onclick="startConversion()" 
-                        class="group w-full sm:w-auto px-10 md:px-14 py-6 md:py-7 text-xl md:text-2xl font-bold bg-white text-black rounded-3xl flex items-center justify-center gap-x-4 hover:bg-amber-300 transition-all active:scale-[0.97]">
-                    <span>Convert Score Now</span>
-                    <i class="fa-solid fa-arrow-right group-active:rotate-45 transition-transform"></i>
-                </button>
-                
-                <button onclick="showPremium()" 
-                        class="w-full sm:w-auto px-8 py-6 md:py-7 text-lg font-semibold border border-white/40 hover:border-white rounded-3xl transition-all">
-                    Join Premium • 7 days free
-                </button>
-            </div>
-            
-            <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs md:text-sm opacity-75 px-4">
-                <div class="flex items-center gap-x-2">
-                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                    <span>Bank-level security</span>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <i class="fa-solid fa-bolt text-amber-400"></i>
-                    <span>Under 60 seconds</span>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <i class="fa-solid fa-star text-yellow-400"></i>
-                    <span>4.98 average rating</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="card">
 
-    <!-- CONVERTER -->
-    <section id="converter" class="py-16 md:py-24 bg-zinc-950">
-        <div class="max-w-5xl mx-auto px-5 md:px-6">
-            <div class="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
-                <div class="md:col-span-7">
-                    <div class="mb-6">
-                        <span class="inline-block px-5 py-1.5 text-xs font-semibold tracking-widest bg-amber-400/10 text-amber-400 rounded-3xl">INSTANT CALCULATOR</span>
-                    </div>
-                    <h2 class="heading-font text-4xl md:text-5xl font-bold leading-tight mb-8">
-                        How much is your<br>Snapchat score worth?
-                    </h2>
-                    
-                    <div class="bg-zinc-900 rounded-3xl p-8 md:p-10 border border-white/10 premium-glow">
-                        <div class="mb-10">
-                            <label class="block uppercase text-xs tracking-widest text-gray-400 mb-3 font-medium">Your Current Score</label>
-                            <div class="flex items-center bg-black rounded-3xl p-2 border border-white/10">
-                                <input id="score-input" 
-                                       type="tel" 
-                                       inputmode="numeric"
-                                       value="142890" 
-                                       oninput="calculateEarnings()"
-                                       class="flex-1 bg-transparent text-5xl md:text-6xl font-mono font-bold px-6 outline-none">
-                                <div class="bg-zinc-800 text-amber-300 px-7 py-5 rounded-2xl font-semibold text-sm">SNAPSCORE</div>
-                            </div>
-                        </div>
-                        
-                        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-y-6">
-                            <div>
-                                <div class="text-xs uppercase tracking-widest text-gray-400">Estimated payout</div>
-                                <div id="earnings" class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-amber-300 to-pink-400">$1,428.90</div>
-                            </div>
-                            
-                            <button onclick="convertScore(this)" 
-                                    class="w-full md:w-auto px-14 py-7 bg-gradient-to-r from-amber-400 to-pink-500 hover:from-amber-300 hover:to-pink-400 text-black font-bold text-xl rounded-3xl flex items-center justify-center gap-x-3 active:scale-95 transition-all">
-                                Convert to Cash
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="md:col-span-5 space-y-8">
-                    <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-amber-400/20">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="uppercase text-xs text-emerald-400 font-medium tracking-widest">Premium Bonus</div>
-                                <div class="text-3xl font-bold mt-3">3.4× Multiplier</div>
-                            </div>
-                            <div class="text-6xl">👑</div>
-                        </div>
-                        <p class="mt-8 text-gray-400">Premium users earn significantly more per point with exclusive streaks and challenges.</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
-                            <i class="fa-solid fa-credit-card text-5xl text-sky-400 mb-6"></i>
-                            <div class="font-semibold">Instant Cashout</div>
-                            <div class="text-4xl font-bold text-white mt-2">$500+</div>
-                            <div class="text-emerald-400 text-sm mt-8">PayPal • Venmo • Crypto</div>
-                        </div>
-                        <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
-                            <i class="fa-solid fa-trophy text-5xl text-amber-400 mb-6"></i>
-                            <div class="font-semibold">Daily Rewards</div>
-                            <div class="text-4xl font-bold text-white mt-2">Up to $750</div>
-                            <div class="text-emerald-400 text-sm mt-8">Leaderboard prizes</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="logo">👻</div>
 
-    <!-- OTHER SECTIONS -->
-    <section class="py-20 bg-black">
-        <div class="max-w-6xl mx-auto px-5 md:px-6">
-            <div class="text-center mb-16">
-                <h2 class="heading-font text-4xl md:text-5xl font-bold">Why creators love SnapCash</h2>
-            </div>
-            
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-zinc-900 rounded-3xl card-hover">
-                    <div class="text-4xl mb-8">🔒</div>
-                    <h3 class="font-semibold text-2xl mb-3">Secure & Verified</h3>
-                    <p class="text-gray-400">Bank-grade encryption. Thousands of successful withdrawals.</p>
-                </div>
-                <div class="p-8 bg-zinc-900 rounded-3xl card-hover">
-                    <div class="text-4xl mb-8">⚡</div>
-                    <h3 class="font-semibold text-2xl mb-3">Lightning Fast</h3>
-                    <p class="text-gray-400">Most payouts processed within minutes.</p>
-                </div>
-                <div class="p-8 bg-zinc-900 rounded-3xl card-hover">
-                    <div class="text-4xl mb-8">📈</div>
-                    <h3 class="font-semibold text-2xl mb-3">Grow Your Score</h3>
-                    <p class="text-gray-400">Pro tips and tools to boost your Snapchat presence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<h1>SnapWorth</h1>
 
-    <!-- FINAL CTA -->
-    <section class="bg-gradient-to-b from-zinc-950 to-black py-20 md:py-28">
-        <div class="max-w-4xl mx-auto px-5 text-center">
-            <div class="max-w-md mx-auto">
-                <h2 class="heading-font text-4xl md:text-5xl font-bold mb-6">Ready to cash out?</h2>
-                <button onclick="showPremium()" 
-                        class="w-full py-8 text-2xl font-bold bg-white text-black rounded-3xl hover:bg-amber-300 transition-all active:scale-95">
-                    Start Free Premium Trial
-                </button>
-                <p class="mt-8 text-sm text-gray-400">No card required • Cancel anytime</p>
-            </div>
-        </div>
-    </section>
+<p class="sub">
+Turn your Snapchat Score into Money
+</p>
 
-    <footer class="py-12 text-center text-xs text-gray-500 border-t border-white/10">
-        © 2026 SnapCash • Fictional demo page for creative purposes only.
-    </footer>
+<input
+type="number"
+id="score"
+placeholder="Enter Snapchat Score">
 
-    <!-- MODALS -->
-    <div id="premium-modal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-5">
-        <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-8 md:p-10">
-            <button onclick="hidePremium()" class="float-right text-4xl text-gray-400 hover:text-white">×</button>
-            <div class="text-center pt-6">
-                <span class="text-5xl">👑</span>
-                <h3 class="heading-font text-4xl font-bold mt-6">Go Premium</h3>
-                <p class="text-gray-400 mt-3">Unlock 3.4× earnings + VIP rewards</p>
-            </div>
-            
-            <div class="my-10 space-y-5">
-                <label class="flex justify-between items-center bg-zinc-800 hover:bg-zinc-700 p-6 rounded-3xl cursor-pointer transition-colors">
-                    <div>
-                        <div class="font-semibold">Monthly</div>
-                        <div class="text-4xl font-bold">$29</div>
-                    </div>
-                    <input type="radio" name="plan" checked class="accent-amber-400">
-                </label>
-                <label class="flex justify-between items-center bg-gradient-to-r from-amber-400/10 to-pink-400/10 border border-amber-400 p-6 rounded-3xl cursor-pointer transition-colors relative">
-                    <div class="absolute -top-3 -right-1 bg-amber-400 text-black text-xs font-bold px-5 py-1 rounded-2xl">SAVE 30%</div>
-                    <div>
-                        <div class="font-semibold">Annual</div>
-                        <div class="text-4xl font-bold">$249 <span class="text-sm line-through text-gray-400">$348</span></div>
-                    </div>
-                    <input type="radio" name="plan" class="accent-amber-400">
-                </label>
-            </div>
-            
-            <button onclick="subscribe()" class="w-full py-7 bg-gradient-to-r from-amber-400 to-pink-500 text-black font-bold text-xl rounded-3xl">Start 7-Day Free Trial</button>
-        </div>
-    </div>
+<button onclick="calculate()">
+Calculate
+</button>
 
-    <div id="login-modal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-5">
-        <div class="bg-zinc-900 w-full max-w-md rounded-3xl p-10">
-            <button onclick="hideLogin()" class="float-right text-4xl text-gray-400 hover:text-white">×</button>
-            <div class="text-center">
-                <div class="mx-auto inline-flex h-20 w-20 items-center justify-center bg-gradient-to-br from-amber-400 to-pink-500 text-6xl rounded-3xl mb-8">👻</div>
-                <h3 class="heading-font text-4xl">Sign in</h3>
-            </div>
-            <div class="mt-10 space-y-4">
-                <input type="text" placeholder="Snapchat username" class="w-full bg-black border border-white/20 rounded-2xl px-7 py-7 outline-none focus:border-amber-400">
-                <input type="password" placeholder="Password" class="w-full bg-black border border-white/20 rounded-2xl px-7 py-7 outline-none focus:border-amber-400">
-            </div>
-            <button onclick="fakeLogin()" class="mt-8 w-full py-7 bg-white text-black font-bold rounded-3xl text-xl">Continue</button>
-        </div>
-    </div>
+<div class="result" id="result">
 
-    <script>
-        function calculateEarnings() {
-            let score = parseFloat(document.getElementById('score-input').value.replace(/[^0-9]/g, '')) || 0;
-            const rate = 0.01;
-            const earnings = (score * rate).toFixed(2);
-            document.getElementById('earnings').textContent = '$' + earnings;
-        }
-        
-        function convertScore(btn) {
-            const originalText = btn.innerHTML;
-            btn.disabled = true;
-            btn.classList.add('!bg-gray-400', '!cursor-wait');
-            btn.innerHTML = `
-                <svg class="animate-spin h-6 w-6 mr-3 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-                Processing...
-            `;
-            
-            setTimeout(() => {
-                alert("✅ Success! $" + document.getElementById('earnings').textContent.replace('$','') + " added to your balance.\n\n(This is a demo experience)");
-                btn.disabled = false;
-                btn.classList.remove('!bg-gray-400', '!cursor-wait');
-                btn.innerHTML = originalText;
-            }, 1850);
-        }
-        
-        function startConversion() {
-            document.getElementById('converter').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                document.getElementById('score-input').focus();
-            }, 800);
-        }
-        
-        function showPremium() {
-            document.getElementById('premium-modal').classList.remove('hidden');
-            document.getElementById('premium-modal').classList.add('flex');
-        }
-        
-        function hidePremium() {
-            document.getElementById('premium-modal').classList.add('hidden');
-            document.getElementById('premium-modal').classList.remove('flex');
-        }
-        
-        function showLogin() {
-            document.getElementById('login-modal').classList.remove('hidden');
-            document.getElementById('login-modal').classList.add('flex');
-        }
-        
-        function hideLogin() {
-            document.getElementById('login-modal').classList.add('hidden');
-            document.getElementById('login-modal').classList.remove('flex');
-        }
-        
-        function subscribe() {
-            hidePremium();
-            setTimeout(() => {
-                alert("🎉 Premium trial activated! Your multiplier is now active.");
-            }, 400);
-        }
-        
-        function fakeLogin() {
-            hideLogin();
-            setTimeout(() => {
-                alert("✅ Logged in (demo only)");
-            }, 300);
-        }
-        
-        window.onload = () => {
-            calculateEarnings();
-            const scoreInput = document.getElementById('score-input');
-            scoreInput.addEventListener('keypress', function(e) {
-                if (!/[0-9]/.test(e.key)) e.preventDefault();
-            });
-        };
-    </script>
+<h3>Your Estimated Worth</h3>
+
+<div class="money" id="money">$0.00</div>
+
+<p class="note">
+If Snapchat paid <b>1 cent</b> per point 😂
+</p>
+
+<button class="share">
+Share Result
+</button>
+
+</div>
+
+<div class="footer">
+For entertainment purposes only.
+</div>
+
+</div>
+
+<script>
+
+function animateValue(start,end,duration){
+
+let current=start;
+
+let range=end-start;
+
+let increment=end>start?1:-1;
+
+let step=Math.abs(Math.floor(duration/range));
+
+step=isFinite(step)?Math.max(step,1):20;
+
+let obj=document.getElementById("money");
+
+let timer=setInterval(()=>{
+
+current+=increment*(range/100);
+
+if((increment>0&&current>=end)||(increment<0&&current<=end)){
+current=end;
+clearInterval(timer);
+}
+
+obj.innerHTML="$"+current.toLocaleString(undefined,{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+},20);
+
+}
+
+function calculate(){
+
+let score=parseInt(document.getElementById("score").value);
+
+if(!score||score<=0){
+alert("Enter your Snapchat Score");
+return;
+}
+
+let worth=score*0.01;
+
+document.getElementById("result").style.display="block";
+
+animateValue(0,worth,1500);
+
+}
+
+</script>
+
 </body>
 </html>
